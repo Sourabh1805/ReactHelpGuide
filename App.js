@@ -36,6 +36,7 @@ const HomeScreen = ({navigation})=> {
 };
 
 
+
 const DetailsScreen = ({navigation})=> {
   return (
     <View style={styles.container}>
