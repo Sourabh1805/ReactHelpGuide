@@ -18,10 +18,71 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+const HomeStack = createStackNavigator();
+const DetailStack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 
-const Stack = createStackNavigator();
 
+const HomeStackScreen = ({navigation})=> (
+  
+  <HomeStack.Navigator screenOptions={{
+    headerStyle:{
+      backgroundColor:"red"
+    },
+    headerTintColor:"#fff",
+    headerTitleStyle:{
+      fontWeight:"bold"
+    }
+  }}>
+    <HomeStack.Screen name="Home" component={HomeScreen} options={{
+      title:'Overview',
+      headerLeft:()=>(
+        <Icon.Button name="ios-menu" size={25}
+        backgroundColor="red"
+        onPress={() =>  navigation.openDrawer() } > 
+        </Icon.Button>
+      )
+    }}/>
+    
+  </HomeStack.Navigator>
+  
+
+);
+
+
+
+
+const DetailStackScreen = ({navigation})=> (
+  
+  <DetailStack.Navigator screenOptions={{
+    headerStyle:{
+      backgroundColor:"red"
+    },
+    headerTintColor:"#fff",
+    headerTitleStyle:{
+      fontWeight:"bold"
+    }
+  }}>
+    
+    <DetailStack.Screen name="Details" component={DetailsScreen} 
+      options={{
+      title:'Details',
+      headerLeft:()=>(
+        <Icon.Button name="ios-menu" size={25}
+        backgroundColor="red"
+        onPress={() =>  navigation.openDrawer() } > 
+        </Icon.Button>
+      )
+    }}/>
+  </DetailStack.Navigator>
+  
+
+);
+  
 
 const HomeScreen = ({navigation})=> {
   return (
@@ -72,10 +133,14 @@ const DetailsScreen = ({navigation})=> {
 const App = () =>{
   return(
   <NavigationContainer>
-  <Stack.Navigator>
+  {/*<Stack.Navigator>
     <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen name="Details" component={DetailsScreen} />
-  </Stack.Navigator>
+  </Stack.Navigator>*/}
+  <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeStackScreen} />
+        <Drawer.Screen name="Details" component={DetailStackScreen} />
+  </Drawer.Navigator>
 </NavigationContainer>
   );
 
